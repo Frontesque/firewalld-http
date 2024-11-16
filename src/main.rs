@@ -15,9 +15,10 @@ fn main() {
     rouille::start_server(LISTEN_ON, move |request| {
         router!(request,
             (POST) (/) => {
+                println!("{:?}", request);
                 let raw_data = try_or_400!(post_input!(request, {
-                    firstName: String,
-                    lastName: String,
+                    first_name: String,
+                    last_name: String,
                 }));
                 println!("{:?}", raw_data);
                 Response::text("hello world")
@@ -29,3 +30,6 @@ fn main() {
         )
     });
 }
+
+
+// firewall-cmd --add-rich-rule='rule family="ipv4" source address="X.X.X.X" reject'
